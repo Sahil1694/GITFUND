@@ -1,0 +1,40 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "C:\\Users\\Sahil\\OneDrive\\Desktop\\DAO_Croud_funding\\Decentralized-CrowdFunding\\web3\\contracts\\CrowdFunding.sol": {
+      "lastModificationDate": 1729376152700,
+      "contentHash": "ef62d61be27bbdfa8be3cf00e90a22e8",
+      "sourceName": "contracts/CrowdFunding.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "CrowdFunding"
+      ]
+    }
+  }
+}

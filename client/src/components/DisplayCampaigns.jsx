@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
 import { loader } from "../assets";
 import { FundCard } from "./";
 
@@ -12,7 +11,7 @@ const DisplayCampaigns = ({ isLoading, campaigns, title }) => {
   };
 
   return (
-    <div className="backdrop-filter backdrop-blur-md ">
+    <div className="backdrop-filter backdrop-blur-md">
       <h1 className="font-epilogue font-semibold text-[18px] text-white text-left">
         {title} ({campaigns.length})
       </h1>
@@ -27,7 +26,7 @@ const DisplayCampaigns = ({ isLoading, campaigns, title }) => {
         )}
 
         {!isLoading && campaigns.length === 0 && (
-          <p className="font-epilogue font-semibold text-[16px] leading-30px] text-[#818183]">
+          <p className="font-epilogue font-semibold text-[16px] leading-30px text-[#818183]">
             There is no campaign yet now
           </p>
         )}

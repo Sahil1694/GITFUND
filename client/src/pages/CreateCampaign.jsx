@@ -7,8 +7,6 @@ import { CustomButton, FormField, Loader } from "../components";
 import { money } from "../assets";
 import { checkIfImage } from "../utils";
 
-const categories = ['Technology', 'Health', 'Education', 'Environment', 'Art'];
-
 const CreateCampaign = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +17,8 @@ const CreateCampaign = () => {
     target: "",
     deadline: "",
     image: "",
-    category: "Technology", // Default category
+    votes: 0, // Added votes field
+    category: "", // Added category field
   });
   const { createCampaign } = useStateContext();
 
@@ -36,6 +35,7 @@ const CreateCampaign = () => {
         await createCampaign({
           ...form,
           target: ethers.utils.parseUnits(form.target, 18),
+          votes: form.votes, // Include votes in the campaign creation
         });
         setIsLoading(false);
         navigate("/");
@@ -66,7 +66,6 @@ const CreateCampaign = () => {
             inputType="text"
             value={form.name}
             handleChange={(e) => handleFormFieldChange("name", e)}
-            className="text-white bg-[#2c2f32] border border-[#3a3a43] rounded-[10px] p-4"
           />
           <FormField
             labelName="Campaign Title *"
@@ -74,7 +73,6 @@ const CreateCampaign = () => {
             inputType="text"
             value={form.title}
             handleChange={(e) => handleFormFieldChange("title", e)}
-            className="text-white bg-[#2c2f32] border border-[#3a3a43] rounded-[10px] p-4"
           />
         </div>
 
@@ -84,7 +82,6 @@ const CreateCampaign = () => {
           isTextArea
           value={form.description}
           handleChange={(e) => handleFormFieldChange("description", e)}
-          className="text-white bg-[#2c2f32] border border-[#3a3a43] rounded-[10px] p-4"
         />
 
         <div className="w-full flex justify-start items-center p-4 bg-[#8c6dfd] h-[120px] rounded-[10px]">
@@ -105,7 +102,6 @@ const CreateCampaign = () => {
             inputType="number"
             value={form.target}
             handleChange={(e) => handleFormFieldChange("target", e)}
-            className="text-white bg-[#2c2f32] border border-[#3a3a43] rounded-[10px] p-4"
           />
           <FormField
             labelName="End Date *"
@@ -113,28 +109,7 @@ const CreateCampaign = () => {
             inputType="date"
             value={form.deadline}
             handleChange={(e) => handleFormFieldChange("deadline", e)}
-            className="text-white bg-[#2c2f32] border border-[#3a3a43] rounded-[10px] p-4"
           />
-        </div>
-
-        {/* New Category Dropdown Field */}
-        <div className="flex flex-wrap gap-[40px]">
-          <div className="w-full">
-            <label className="text-white font-epilogue font-semibold mb-3">
-              Select Category *
-            </label>
-            <select
-              value={form.category}
-              onChange={(e) => handleFormFieldChange("category", e)}
-              className="w-full bg-[#2c2f32] text-white p-4 rounded-[10px] border border-[#3a3a43]"
-            >
-              {categories.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-          </div>
         </div>
 
         <FormField
@@ -143,14 +118,22 @@ const CreateCampaign = () => {
           inputType="url"
           value={form.image}
           handleChange={(e) => handleFormFieldChange("image", e)}
-          className="text-white bg-[#2c2f32] border border-[#3a3a43] rounded-[10px] p-4"
+        />
+
+        {/* New Category Field */}
+        <FormField
+          labelName="Category *"
+          placeholder="Enter category"
+          inputType="text"
+          value={form.category}
+          handleChange={(e) => handleFormFieldChange("category", e)}
         />
 
         <div className="flex justify-center items-center mt-[40px]">
           <CustomButton
             btnType="submit"
             title="Submit New Campaign"
-            styles="bg-[#1dc071] text-white"
+            styles="bg-[#1dc071]"
           />
         </div>
       </form>

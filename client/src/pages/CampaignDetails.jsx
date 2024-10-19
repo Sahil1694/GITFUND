@@ -53,8 +53,8 @@ const CampaignDetails = () => {
     <div>
       {isLoading && <Loader />}
 
-      <div className="w-full flex md:flex-row flex-col mt-10 gap-[30px]">
-        <div className="flex-1 flex-col">
+      <div className="flex flex-col items-center mt-10">
+        <div className="flex flex-col items-center w-full">
           <img
             src={state.image}
             alt="campaign"
@@ -72,18 +72,21 @@ const CampaignDetails = () => {
               }}
             ></div>
           </div>
-        </div>
 
-        <div className="flex md:w-[150px] w-full flex-wrap justify-between gap-[30px]">
-          <CountBox
-            title="Days Left"
-            value={remainingDays >= 0 ? remainingDays : "Ended"}
-          />
-          <CountBox
-            title={`Raised of ${state.target}`}
-            value={state.amountCollected}
-          />
-          <CountBox title="Total Backers" value={donators.length} />
+          {/* Votes and Category Display in a Single Row */}
+          <div className="flex justify-between items-center w-full mt-4 px-4">
+            <CountBox title="Votes" value={state.votes} />
+            <CountBox title="Category" value={state.category} />
+            <CountBox
+              title="Days Left"
+              value={remainingDays >= 0 ? remainingDays : "Ended"}
+            />
+            <CountBox
+              title={`Raised of ${(state.target/10**18)}`}
+              value={state.amountCollected}
+            />
+            <CountBox title="Total Backers" value={donators.length} />
+          </div>
         </div>
       </div>
 
@@ -159,7 +162,7 @@ const CampaignDetails = () => {
             Fund
           </h4>
 
-          <div className="mt-[20px] fle flex-col p-4 bg-[#1c1c24] rounded-[10px]">
+          <div className="mt-[20px] flex flex-col p-4 bg-[#1c1c24] rounded-[10px]">
             <p className="font-epilogue font-medium text-[20px] leading-[30px] text-center text-[#808191]">
               Fund the campaign
             </p>
