@@ -7,17 +7,26 @@ const Home = () => {
   const [campaigns, setCampaigns] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [categories, setCategories] = useState([]);
-
-  const { address, contract, getCampaigns, getCategories, getCampaignsByCategory } = useStateContext();
+  const { address, contract, getCampaigns, getCategories, getCampaignsByCategory, getTotalVotes } = useStateContext();
   
-  // Statistics Variables
-  const uniqueDonations = 67;
-  const projectsRaisedFunds = 125;
-  const fundDistribution = '90% Distributed';
-  
-  // Visibility and Animation
+  const [uniqueDonations, setUniqueDonations] = useState(0);
+  const [projectsRaisedFunds, setProjectsRaisedFunds] = useState(0); // Initialize projectsRaisedFunds with state
   const [isVisible, setIsVisible] = useState(false);
   const statsRef = useRef(null);
+
+  // Fetch the votes count when the component mounts
+  useEffect(() => {
+    const fetchVotesCount = async () => {
+      try {
+        const totalVotes = await getTotalVotes();
+        setUniqueDonations(totalVotes);
+      } catch (error) {
+        console.error("Error fetching total votes:", error);
+      }
+    };
+    
+    fetchVotesCount();
+  }, [getTotalVotes]);
 
   // Fetch Campaigns
   const fetchCampaigns = async () => {
@@ -59,8 +68,15 @@ const Home = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Animation for counts
-  const animateCount = (target) => {
+  // Animate counts when visible
+  useEffect(() => {
+    if (isVisible) {
+      animateCount(uniqueDonations, setUniqueDonations);
+      animateCount(projectsRaisedFunds, setProjectsRaisedFunds);
+    }
+  }, [isVisible]);
+
+  const animateCount = (target, setValue) => {
     let start = 0;
     const increment = Math.ceil(target / 50);
     const interval = setInterval(() => {
@@ -69,17 +85,9 @@ const Home = () => {
         start = target;
         clearInterval(interval);
       }
-      document.getElementById(`count-${target}`).innerText = start;
+      setValue(start); // Use state to trigger re-renders
     }, 20);
   };
-
-  // Animate counts when visible
-  useEffect(() => {
-    if (isVisible) {
-      animateCount(uniqueDonations);
-      animateCount(projectsRaisedFunds);
-    }
-  }, [isVisible]);
 
   return (
     <div style={{ padding: '20px' }}>
@@ -87,15 +95,15 @@ const Home = () => {
       <div ref={statsRef} style={styles.statsContainer}>
         <div className="stat-box">
           <h2 className="stat-title">Unique Donations</h2>
-          <p className="stat-value" id={`count-${uniqueDonations}`}>0</p>
+          <p className="stat-value">{uniqueDonations}</p>
         </div>
         <div className="stat-box">
           <h2 className="stat-title">Projects Raised Funds</h2>
-          <p className="stat-value" id={`count-${projectsRaisedFunds}`}>0</p>
+          <p className="stat-value">0.00215</p>
         </div>
         <div className="stat-box">
           <h2 className="stat-title">Fund Distribution</h2>
-          <p className="stat-value">{fundDistribution}</p>
+          <p className="stat-value">100% Distributed</p>
         </div>
       </div>
 
@@ -197,10 +205,10 @@ const css = `
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0);
   }
   75% {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 100%);
   }
   100% {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 100%);
   }
 }
 `;

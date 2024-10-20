@@ -11,7 +11,7 @@ const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
   const { contract } = useContract(
-    "0xBF139038FD27088ee1DB9d17FFB5ec5E63C5Ca77"
+    "0x855CCBC877ACCc50ccb622BD3A184443f69F17bF"
   );
   const { mutateAsync: createCampaign } = useContractWrite(
     contract,
@@ -69,6 +69,13 @@ export const StateContextProvider = ({ children }) => {
 
     return parsedCampaigns;
   };
+
+  const getTotalVotes = async () => {
+    const campaigns = await getCampaigns();
+    const totalVotes = campaigns.reduce((acc, campaign) => acc + campaign.votes, 0);
+    return totalVotes;
+  };
+  
 
   const deleteUserCampaigns = async (campaignId) => {
     try {
@@ -171,6 +178,7 @@ export const StateContextProvider = ({ children }) => {
         deleteUserCampaigns,
         getCategories,
         getCampaignsByCategory,
+        getTotalVotes
       }}
     >
       {children}
