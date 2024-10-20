@@ -3,19 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
 
 import { logo, money } from "../assets";
-import { news } from "../assets";
 import { navlinks } from "../constants";
 
-const Icon = ({ styles, name, imgUrl, isActive, disabled, handleClick }) => {
+const Icon = ({ styles, name, imgUrl, isActive, handleClick }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
     <div
       className={`relative w-[48px] h-[48px] rounded-[10px] ${
-        isActive && isActive === name && "bg-[#2c2f32]"
-      } flex justify-center items-center ${
-        !disabled && "cursor-pointer"
-      } ${styles}`}
+        isActive ? "bg-[#2c2f32]" : ""
+      } flex justify-center items-center cursor-pointer ${styles}`}
       onClick={handleClick}
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
@@ -25,33 +22,33 @@ const Icon = ({ styles, name, imgUrl, isActive, disabled, handleClick }) => {
           Donate
         </span>
       )}
-      {!isActive ? (
-        <img src={imgUrl} alt="fund_logo" className="w-1/2 h-1/2" />
-      ) : (
-        <img
-          src={imgUrl}
-          alt="fund_logo"
-          className={`w-1/2 h-1/2 ${isActive !== name && "grayscale"}`}
-        />
-      )}
+      <img
+        src={imgUrl}
+        alt={name}
+        className={`w-1/2 h-1/2 ${isActive ? "" : "grayscale"}`}
+      />
     </div>
   );
 };
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const [isActive, setIsActive] = useState("dashboard");
+  const [isActive, setIsActive] = useState("logo"); // Change initial active state to "logo"
   const [hoveredIcon, setHoveredIcon] = useState(null);
-
-  const handleThreeDotsClick = () => {
-    // Use the navigate function to navigate to the desired route
-    navigate("/news");
-  };
 
   return (
     <div className="flex justify-between items-center flex-col sticky top-5 h-[93vh]">
       <Link to="/">
-        <Icon styles="w-[52px] h-[52px] bg-[#2c2f32]" imgUrl={logo} />
+        <Icon
+          styles="w-[52px] h-[52px] bg-[#2c2f32]"
+          imgUrl={logo}
+          name="logo" // Add name to differentiate the logo
+          isActive={isActive === "logo"} // Check if the logo is active
+          handleClick={() => {
+            setIsActive("logo"); // Update the active state to logo on click
+            navigate("/"); // Navigate to home on logo click
+          }}
+        />
       </Link>
 
       <div className="flex-1 flex flex-col justify-between items-center bg-[#1c1c24] rounded-[20px] w-[76px] py-4 mt-12">
@@ -65,25 +62,30 @@ const Sidebar = () => {
             >
               <Icon
                 {...link}
-                isActive={isActive}
+                isActive={isActive === link.name}
                 handleClick={() => {
-                  if (!link.disabled) {
-                    setIsActive(link.name);
-                    navigate(link.link);
+                  setIsActive(link.name);
+                  if (link.name === "dashboard") {
+                    navigate("/home"); // Navigate to /home on Dashboard click
+                  } else {
+                    navigate(link.link); // Navigate to other links
                   }
                 }}
               />
-
               {hoveredIcon === link.name && (
                 <span className="tooltip">{link.name}</span>
               )}
             </div>
           ))}
           <Icon
-            styles="w-[52px] h-[52px] bg-[#2c2f32]"
+            styles="w-[52px] h-[52px]"
             imgUrl={money}
             name="money"
-            handleClick={handleThreeDotsClick}
+            isActive={isActive === "money"} // Check if money icon is active
+            handleClick={() => {
+              setIsActive("money"); // Update active state to money
+              navigate("/news"); // Navigate to /news on money icon click
+            }}
           />
         </div>
       </div>

@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { Home, Profile, CreateCampaign, CampaignDetails } from "./pages";
 import { Navbar, Sidebar } from "./components";
 import News from "./pages/News";
+import LandingPage from "./pages/Landingpage";
 
 const App = () => {
   return (
@@ -15,7 +16,8 @@ const App = () => {
         <Navbar />
 
         <Routes>
-          <Route path="/" element={<Home />} />
+        <Route path="/" element={<LandingPage />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-campaign" element={<CreateCampaign />} />
           <Route path="/campaign-details/:id" element={<CampaignDetails />} />

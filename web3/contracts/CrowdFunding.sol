@@ -17,7 +17,8 @@ contract CrowdFunding {
     }
 
     struct User {
-        bool haveVote;
+    bool hasVoted;                           // Indicates if the user has voted for any campaign
+    mapping(string => bool) votesByCategory; // Tracks whether the user has voted in specific categories by name
     }
 
     struct Category {
@@ -93,9 +94,10 @@ contract CrowdFunding {
         campaign.amountCollected += amount;
 
         // Allow the user to vote only if they haven't voted yet
-        if (!users[msg.sender].haveVote) {
+        if (!users[msg.sender].hasVoted || !users[msg.sender].votesByCategory[campaign.category]) {
             campaign.votes += 1;
-            users[msg.sender].haveVote = true; // Set haveVote to true after voting
+            users[msg.sender].hasVoted = true; // Set haveVote to true after voting
+            users[msg.sender].votesByCategory[campaign.category] = true; // Set haveVote to true for the category
         }
 
         emit DonationReceived(_id, msg.sender, amount); // Emit event for donation
