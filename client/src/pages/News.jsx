@@ -6,23 +6,23 @@ const News = () => {
       title: "Climate Change and Its Impact on Global Agriculture",
       description:
         "As temperatures rise and weather patterns shift, global agriculture is facing unprecedented challenges.",
-      url: "#",
+      url: "https://en.wikipedia.org/wiki/Effects_of_climate_change_on_agriculture",
       urlToImage:
         "https://khetigaadi.com/blog/wp-content/uploads/2018/07/Effect-of-Climate-Change-on-Agriculture.jpg",
     },
     {
       title: "New Discovery in Renewable Energy",
       description:
-        "Scientists have developed a more efficient way to harness solar energy, pushing renewable energy forward.",
-      url: "#",
+        "Renewable energy (or green energy) is energy from renewable natural resources that are replenished on a human timescale.",
+      url: "https://en.wikipedia.org/wiki/Renewable_energy",
       urlToImage:
         "https://cisp.cachefly.net/assets/articles/images/resized/0001085446_resized_windturbinewithsolarpanelsandsunset1022.jpg"
     },
     {
       title: "India's Push for Sustainable Development",
       description:
-        "India is making strides toward a more sustainable future by investing in green technologies.",
-      url: "#",
+        "Sustainable development is an approach to growth and human development that aims to meet the needs of the present without compromising the ability of future generations to meet their own needs.",
+      url: "https://en.wikipedia.org/wiki/Sustainable_development",
       urlToImage:
         "https://reportyak.com/wp-content/uploads/2024/05/Sustainable-Development-Index-Report-Yak-Blog.webp",
     },
@@ -30,23 +30,23 @@ const News = () => {
       title: "Oceans Are Heating Up at an Alarming Rate",
       description:
         "Recent studies show that the world's oceans are absorbing heat faster than expected, leading to ecological changes.",
-      url: "#",
+      url: "https://www.unesco.org/en/articles/new-unesco-report-rate-ocean-warming-doubled-20-years-rate-sea-level-rise-doubled-30-years",
       urlToImage:
         "https://www.unesco.org/sites/default/files/styles/best_image/article/2024-07/shutterstock_2285640349%20%281%29.jpg?itok=PA7PoR7Z",
     },
     {
-      title: "Innovative Solutions to Combat Air Pollution",
+      title: "The Future of Blockchain Technology",
       description:
-        "New technologies are emerging to help combat the ever-growing issue of air pollution in urban areas.",
-      url: "#",
+        "Blockchain is undoubtedly one of the biggest inventions of the 21st century. More than just a buzzword, this technology has proven to be of practical significance with custom blockchain development taking center stage across various industries. ",
+      url: "https://crustlab.com/blog/what-is-the-future-of-blockchain/",
       urlToImage:
-        "https://www.manufacturingtodayindia.com/cloud/2023/03/21/Liquid-tree-scaled.jpg",
+        "https://blogs.iadb.org/caribbean-dev-trends/wp-content/uploads/sites/34/2017/12/Blockchain1.jpg",
     },
     {
       title: "The Future of Electric Vehicles in India",
       description:
         "Electric vehicles are becoming more popular in India, and the government is making moves to support their adoption.",
-      url: "#",
+      url: "https://www.investindia.gov.in/team-india-blogs/indias-ev-economy-future-automotive-transportation",
       urlToImage:
         "https://poonawallafincorp.com/pfca/assets/blog_banner/blog_banner-electric-vehicle-in-india-desktop.jpg",
     },
