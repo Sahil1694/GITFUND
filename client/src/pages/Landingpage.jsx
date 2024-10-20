@@ -14,7 +14,7 @@ const LandingPage = () => {
       </p>
 
       <div className="flex space-x-6">
-        <Link to="/create-campaign">
+        <Link to="/home">
           <button className="px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg text-lg font-medium">
             Get Started
           </button>
