@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 
@@ -17,10 +17,20 @@ const CreateCampaign = () => {
     target: "",
     deadline: "",
     image: "",
-    votes: 0, // Added votes field
-    category: "", // Added category field
+    votes: 0,
+    category: "",
   });
-  const { createCampaign } = useStateContext();
+  
+  const { createCampaign, getCategories } = useStateContext();
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const categoriesList = await getCategories();
+      setCategories(categoriesList);
+    };
+    fetchCategories();
+  }, [getCategories]);
 
   const handleFormFieldChange = (fieldName, e) => {
     setForm({ ...form, [fieldName]: e.target.value });
@@ -35,7 +45,7 @@ const CreateCampaign = () => {
         await createCampaign({
           ...form,
           target: ethers.utils.parseUnits(form.target, 18),
-          votes: form.votes, // Include votes in the campaign creation
+          votes: form.votes,
         });
         setIsLoading(false);
         navigate("/");
@@ -120,14 +130,23 @@ const CreateCampaign = () => {
           handleChange={(e) => handleFormFieldChange("image", e)}
         />
 
-        {/* New Category Field */}
-        <FormField
-          labelName="Category *"
-          placeholder="Enter category"
-          inputType="text"
+        {/* New Category Dropdown */}
+        <label className="font-epilogue font-medium text-[16px] text-white">
+          Category *
+        </label>
+        <select
           value={form.category}
-          handleChange={(e) => handleFormFieldChange("category", e)}
-        />
+          onChange={(e) => handleFormFieldChange("category", e)}
+          className="bg-[#3a3a43] p-3 rounded-[10px] text-white"
+          required
+        >
+          <option value="">Select a category</option>
+          {categories.map((category, index) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
 
         <div className="flex justify-center items-center mt-[40px]">
           <CustomButton

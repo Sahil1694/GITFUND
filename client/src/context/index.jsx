@@ -134,6 +134,27 @@ export const StateContextProvider = ({ children }) => {
     return userCampaigns.length;
   };
 
+  const categories = [
+    "Education",
+    "Health",
+    "Environment",
+    "Arts & Culture",
+    "Technology",
+  ];
+
+  const getCategories = async () => {
+    return categories;
+  }
+
+  const getCampaignsByCategory = async (category) => {
+    const allCampaigns = await getCampaigns();
+    const categoryCampaigns = allCampaigns.filter(
+      (campaign) => campaign.category === category
+    );
+
+    return categoryCampaigns;
+  };
+
   return (
     <StateContext.Provider
       value={{
@@ -148,6 +169,8 @@ export const StateContextProvider = ({ children }) => {
         getWinnersByCategory, // Expose the new function
         getNumberOfCampaigns,
         deleteUserCampaigns,
+        getCategories,
+        getCampaignsByCategory,
       }}
     >
       {children}
