@@ -11,23 +11,23 @@ const DisplayCampaigns = ({ isLoading, campaigns, title }) => {
   };
 
   return (
-    <div className="backdrop-filter backdrop-blur-md">
-      <h1 className="font-epilogue font-semibold text-[18px] text-white text-left">
+    <div className="bg-gradient-to-r from-[#282c34] to-[#1c1c24] p-6 rounded-lg shadow-lg">
+      <h1 className="font-epilogue font-semibold text-[24px] text-[#f0f0f0] mb-4 border-b-2 border-[#8c6dfd] pb-2">
         {title} ({campaigns.length})
       </h1>
 
-      <div className="flex flex-wrap mt-[20px] gap-[30px]">
+      <div className="flex flex-wrap mt-4 gap-6">
         {isLoading && (
           <img
             src={loader}
             alt="loader"
-            className="w-[100px] h-[100px] object-contain"
+            className="w-[80px] h-[80px] object-contain mx-auto animate-spin"
           />
         )}
 
         {!isLoading && campaigns.length === 0 && (
-          <p className="font-epilogue font-semibold text-[16px] leading-30px text-[#818183]">
-            There is no campaign yet now
+          <p className="font-epilogue font-semibold text-[16px] text-[#ccc]">
+            No campaigns available at the moment.
           </p>
         )}
 
@@ -40,6 +40,11 @@ const DisplayCampaigns = ({ isLoading, campaigns, title }) => {
               handleClick={() => handleNavigate(campaign)}
             />
           ))}
+      </div>
+
+      {/* Additional visual interest */}
+      <div className="mt-6 text-center">
+        <p className="text-[#8c6dfd] italic">Support a campaign today!</p>
       </div>
     </div>
   );

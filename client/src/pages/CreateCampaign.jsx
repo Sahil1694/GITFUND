@@ -4,7 +4,6 @@ import { ethers } from "ethers";
 
 import { useStateContext } from "../context";
 import { CustomButton, FormField, Loader } from "../components";
-import { money } from "../assets";
 import { checkIfImage } from "../utils";
 
 const CreateCampaign = () => {
@@ -57,29 +56,25 @@ const CreateCampaign = () => {
   };
 
   return (
-    <div className="bg-[#1c1c24] flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4">
+    <div className="bg-[#2C2F33] flex flex-col items-center rounded-lg shadow-lg p-8">
       {isLoading && <Loader />}
-      <div className="flex justify-center items-center p-[16px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]">
-        <h1 className="font-epilogue font-bold sm:text-[25px] text-[18px] leading-[38px] text-white">
-          Start a Campaign
-        </h1>
-      </div>
+      <h1 className="text-3xl font-bold text-white mb-6">Launch Your Campaign</h1>
 
       <form
         onSubmit={handleSubmit}
-        className="w-full mt-[65px] flex flex-col gap-[30px]"
+        className="w-full flex flex-col gap-4"
       >
-        <div className="flex flex-wrap gap-[40px]">
+        <div className="flex flex-col gap-4">
           <FormField
-            labelName="Your Name *"
-            placeholder="John Doe"
+            labelName="Your Full Name *"
+            placeholder="Enter your name"
             inputType="text"
             value={form.name}
             handleChange={(e) => handleFormFieldChange("name", e)}
           />
           <FormField
-            labelName="Campaign Title *"
-            placeholder="Write a title"
+            labelName="Campaign Name *"
+            placeholder="Campaign for a cause"
             inputType="text"
             value={form.title}
             handleChange={(e) => handleFormFieldChange("title", e)}
@@ -87,35 +82,24 @@ const CreateCampaign = () => {
         </div>
 
         <FormField
-          labelName="Story *"
-          placeholder="Write your story"
+          labelName="Campaign Description *"
+          placeholder="Tell us your story"
           isTextArea
           value={form.description}
           handleChange={(e) => handleFormFieldChange("description", e)}
         />
 
-        <div className="w-full flex justify-start items-center p-4 bg-[#8c6dfd] h-[120px] rounded-[10px]">
-          <img
-            src={money}
-            alt="money"
-            className="w-[40px] h-[40px] object-contain"
-          />
-          <h4 className="font-epilogue font-bold text-[25px] text-white ml-[20px]">
-            You will get 100% of the raised amount
-          </h4>
-        </div>
-
-        <div className="flex flex-wrap gap-[40px]">
+        <div className="flex flex-col gap-4">
           <FormField
-            labelName="Goal *"
-            placeholder="ETH 0.50"
+            labelName="Funding Goal (ETH) *"
+            placeholder="e.g., 0.75"
             inputType="number"
             value={form.target}
             handleChange={(e) => handleFormFieldChange("target", e)}
           />
           <FormField
             labelName="End Date *"
-            placeholder="End Date"
+            placeholder="Select a date"
             inputType="date"
             value={form.deadline}
             handleChange={(e) => handleFormFieldChange("deadline", e)}
@@ -123,24 +107,21 @@ const CreateCampaign = () => {
         </div>
 
         <FormField
-          labelName="Campaign Image *"
-          placeholder="Place Image URL"
+          labelName="Campaign Image URL *"
+          placeholder="https://your-image-url.com"
           inputType="url"
           value={form.image}
           handleChange={(e) => handleFormFieldChange("image", e)}
         />
 
-        {/* New Category Dropdown */}
-        <label className="font-epilogue font-medium text-[16px] text-white">
-          Category *
-        </label>
+        <label className="text-lg font-medium text-white">Select Category *</label>
         <select
           value={form.category}
           onChange={(e) => handleFormFieldChange("category", e)}
-          className="bg-[#3a3a43] p-3 rounded-[10px] text-white"
+          className="bg-[#40444B] p-2 rounded-lg text-white"
           required
         >
-          <option value="">Select a category</option>
+          <option value="">Choose a category</option>
           {categories.map((category, index) => (
             <option key={index} value={category}>
               {category}
@@ -148,11 +129,11 @@ const CreateCampaign = () => {
           ))}
         </select>
 
-        <div className="flex justify-center items-center mt-[40px]">
+        <div className="flex justify-center mt-6">
           <CustomButton
             btnType="submit"
-            title="Submit New Campaign"
-            styles="bg-[#1dc071]"
+            title="Create Campaign"
+            styles="bg-[#7289DA] hover:bg-[#5B6EAE] transition duration-300"
           />
         </div>
       </form>

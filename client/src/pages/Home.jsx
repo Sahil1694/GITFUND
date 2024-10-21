@@ -10,7 +10,7 @@ const Home = () => {
   const { address, contract, getCampaigns, getCategories, getCampaignsByCategory, getTotalVotes } = useStateContext();
   
   const [uniqueDonations, setUniqueDonations] = useState(0);
-  const [projectsRaisedFunds, setProjectsRaisedFunds] = useState(0); // Initialize projectsRaisedFunds with state
+  const [projectsRaisedFunds, setProjectsRaisedFunds] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const statsRef = useRef(null);
 
@@ -85,12 +85,12 @@ const Home = () => {
         start = target;
         clearInterval(interval);
       }
-      setValue(start); // Use state to trigger re-renders
+      setValue(start);
     }, 20);
   };
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={styles.container}>
       {/* Statistics Section */}
       <div ref={statsRef} style={styles.statsContainer}>
         <div className="stat-box">
@@ -99,7 +99,7 @@ const Home = () => {
         </div>
         <div className="stat-box">
           <h2 className="stat-title">Projects Raised Funds</h2>
-          <p className="stat-value">0.00215</p>
+          <p className="stat-value">{projectsRaisedFunds.toFixed(5)}</p>
         </div>
         <div className="stat-box">
           <h2 className="stat-title">Fund Distribution</h2>
@@ -108,12 +108,12 @@ const Home = () => {
       </div>
 
       {/* Dropdown to select category */}
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-white text-xl">Filter by Category:</h2>
+      <div className="flex flex-col mb-4">
+        <h2 className="text-[#e0e0e0] text-xl mb-2">Filter by Category:</h2>
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="bg-[#3a3a43] p-2 rounded-[10px] text-white"
+          className="bg-[#2b2b2b] p-2 rounded-[10px] text-[#e0e0e0] border border-[#4a4a4a]"
         >
           <option value="">All Categories</option>
           {categories.length === 0 ? (
@@ -129,7 +129,7 @@ const Home = () => {
       </div>
 
       {categories.length === 0 && (
-        <p className="text-white text-lg">No categories found.</p>
+        <p className="text-[#e0e0e0] text-lg">No categories found.</p>
       )}
 
       {/* Display Campaigns */}
@@ -143,16 +143,20 @@ const Home = () => {
 };
 
 const styles = {
+  container: {
+    padding: '20px',
+    backgroundColor: '#121212',
+    minHeight: '100vh',
+    color: '#e0e0e0',
+  },
   statsContainer: {
     display: 'flex',
     justifyContent: 'space-around',
     marginBottom: '20px',
-    backgroundColor: '#000000',
+    backgroundColor: '#1a1a1a',
     padding: '20px',
     borderRadius: '12px',
-    position: 'relative',
-    overflow: 'hidden',
-    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
   },
 };
 
@@ -164,13 +168,20 @@ const css = `
   padding: 20px;
   text-align: center;
   border-radius: 12px;
-  overflow: hidden;
+  background-color: #2c2c2c;
+  border: 2px solid transparent; /* Initial transparent border */
+  transition: background-color 0.3s, border-color 0.3s; /* Add border color transition */
+}
+
+.stat-box:hover {
+  background-color: #3a3a43;
+  border-color: #ffcc00; /* Change border color on hover */
 }
 
 .stat-title {
   font-size: 1.5rem;
   margin-bottom: 10px;
-  color: #f9f9f9;
+  color: #ffcc00;
   font-weight: bold;
 }
 
@@ -178,44 +189,10 @@ const css = `
   font-size: 2rem;
   color: #4fc128;
   font-weight: bold;
-}
-
-.stat-box::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  border: 2px solid transparent;
-  box-sizing: border-box;
-  animation: borderAnimation 4s linear infinite;
-}
-
-@keyframes borderAnimation {
-  0% {
-    clip-path: polygon(0 0, 0 0, 0 0, 0 0);
-    border-color: #8e44ad;
-  }
-  25% {
-    clip-path: polygon(0 0, 100% 0, 0 0, 0 0);
-  }
-  50% {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0);
-  }
-  75% {
-    clip-path: polygon(0 0, 100% 0, 100% 0, 0 100%);
-  }
-  100% {
-    clip-path: polygon(0 0, 100% 0, 100% 0, 0 100%);
-  }
-}
-`;
+}`;
 
 // Inject CSS into the document head
 const styleSheet = document.createElement("style");
-styleSheet.type = "text/css";
 styleSheet.innerText = css;
 document.head.appendChild(styleSheet);
 
