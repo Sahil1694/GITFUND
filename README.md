@@ -120,6 +120,4 @@ Contributions are welcome! Please follow these steps:
 5. Submit a pull request.
 
 
-## Contact
-
-For any inquiries or feedback, please refer to the GitHub repository: [Project Repository](<github-link>)
+##Thank you
