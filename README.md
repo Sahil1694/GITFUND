@@ -118,6 +118,3 @@ Contributions are welcome! Please follow these steps:
    git push origin feature-branch
    ```
 5. Submit a pull request.
-
-
-##Thank you
